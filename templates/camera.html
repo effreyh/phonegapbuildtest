@@ -1,0 +1,90 @@
+<ion-view view-title="Capture Moment">
+    <ion-content>
+        <div ng-hide="photo.image">
+            <div class="row padding">
+                <div class="col-33" style="text-align:center">
+                    <button class="button button-primaryk"
+                            ng-click="getPhoto()">
+                        <span class="ion-camera" style="font-size: 24px"></span>
+                        Camera
+                    </button>
+                </div>
+                <div class="col col-center">
+                    Take a picture from your camera
+                </div>
+            </div>
+            <div class="row padding">
+                <div class="col-33"  style="text-align:center">
+                    <button class=" button button-primary"
+                            ng-click="getGalleryPhoto()" >
+                        <span class="ion-images" style="font-size: 24px"></span>
+                        Gallery
+                    </button>
+                </div>
+                <div class="col col-center">
+                    or Load a picture from the Gallery
+                </div>
+            </div>
+            <div class="row padding">
+                <div class="col-33" style="text-align:center">
+                    <button class="button button-positive icon-right"
+                            ng-click="uploadPhoto(obj)"
+                            ng-disabled="!lastPhoto">
+                        <span class="ion-upload" style="font-size: 24px"></span>
+                        Upload
+                    </button>
+                </div>
+                <div class="col col-center">
+                    Upload the image to GeoPhoto
+                </div>
+            </div>
+        </div>
+        <div class="row responsive-sm" >
+            <div class="col" style="text-align:center" ng-show="photo.image">
+                <img ng-src="{{photo.image}}" style="max-height: 90%; max-width: 95%"
+                     imageonload="photoLoaded(this)"/>
+            </div>
+            <div class="col padding" style="text-align:center">
+                <label class="item item-input-inset">
+                    <span class="input-label">Tags:</span>
+                    <input type="text"
+                           placeholder=" Enter any search"
+                           class="item-input-wrapper"
+                           ng-model="photo.tags" >
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Latitude:</span>
+                    <span ng-show="photo.geo.latitude && photo.image">{{photo.geo.latitude}}</span>
+                    <span ng-show="!photo.geo.latitude && photo.image" style="text-align:left;white-space: normal">Geo location data not available, unable to upload to GeoPhoto </span>
+
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Longitude:</span>
+                    <span ng-show="photo.geo.longitude && photo.image">{{photo.geo.longitude}}</span>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">EXIF Data:</span>
+                    <span style="text-align:left;white-space: normal">{{photo.geo.exifdata}}</span>
+                </label>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar>
+        <div class="bar bar-footer">
+            <button ng-click="getPhoto()" class=" button button-primary padding">
+                <span class="ion-camera" style="font-size: 24px"></span>
+                Camera
+            </button>
+            <button ng-click="getGalleryPhoto()" class=" button button-primary padding">
+                <span class="ion-images" style="font-size: 24px"></span>
+                Gallery
+            </button>
+            <button class="button button-positive icon-right padding"
+                    ng-click="uploadPhoto(obj)"
+                    ng-disabled="!(photo.image && photo.geo.latitude)">
+                <span class="ion-upload" style="font-size: 24px"></span>
+                Upload
+            </button>
+        </div>
+    </ion-footer-bar>
+</ion-view>
